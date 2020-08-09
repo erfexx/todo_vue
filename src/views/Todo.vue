@@ -54,7 +54,7 @@ export default {
   created() {
     console.log("get todos data");
     this.axios
-      .get("http://localhost:8000/api/v1/todos")
+      .get(process.env.VUE_APP_URL + "/api/v1/todos")
       .then((response) => {
         let { data } = response.data;
         this.todos = data;
@@ -66,7 +66,7 @@ export default {
       });
   },
   data: () => (
-    console.log("first todos data"),
+    console.log(process.env.VUE_APP_NAME),
     {
       todos: [],
     }
@@ -75,7 +75,7 @@ export default {
     setUpdate: function (id, task, status) {
       this.axios
         .patch(
-          "http://localhost:8000/api/v1/todos/" + id,
+          process.env.VUE_APP_URL + "/api/v1/todos/" + id,
           { task: task, is_finish: status },
           {
             headers: {
@@ -95,14 +95,14 @@ export default {
     deleteTask: function (id) {
       console.log(id);
       this.axios
-        .delete("http://localhost:8000/api/v1/todos/" + id, {
+        .delete(process.env.VUE_APP_URL + "/api/v1/todos/" + id, {
           headers: {
             "Content-type": "application/json",
           },
         })
         .then((response) => {
           console.log(response);
-            window.location.reload();
+          window.location.reload();
         })
         .catch((error) => {
           let { response } = error;

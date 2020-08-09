@@ -29,20 +29,19 @@ export default {
       let formData = new FormData();
       formData.set("task", this.task);
       this.axios
-        .post("http://localhost:8000/api/v1/todos", formData, {
+        .post(process.env.VUE_APP_URL + "/api/v1/todos", formData, {
           headers: {
             "Content-type": "application/json",
           },
         })
         .then((response) => {
           console.log(response);
+          window.location.reload();
         })
         .catch((error) => {
           let { response } = error;
           console.log(response);
         });
-
-      window.location.reload();
     },
   },
 };
